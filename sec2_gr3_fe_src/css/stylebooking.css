@@ -550,34 +550,28 @@ tbody tr:hover {
 
 /* Booking History Action Buttons */
 .btn-action {
-    padding: 6px 12px;
-    border: 1px solid;
+    padding: 8px 14px;  /* (ปรับ padding ให้นดูดีขึ้น) */
+    border: none;       /* (ลบเส้นขอบ) */
     border-radius: 4px;
-    font-size: 13px;
+    font-size: 14px;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.2s;
-    background: white;
+    display: inline-flex; /* (จัดไอคอนกับข้อความ) */
+    align-items: center;  /* (จัดไอคอนกับข้อความ) */
+    gap: 6px;             /* (ระยะห่างระหว่างไอคอน/อีโมจิ กับข้อความ) */
 }
 
-.btn-action.btn-edit {
-    border-color: #6c757d;
-    color: #6c757d;
-    background: white;
-}
-
-.btn-action.btn-edit:hover {
-    background: #f8f9fa;
-}
-
+/* 🔥 สไตล์ใหม่สำหรับปุ่ม Edit และ Payments (สีเทา) */
+.btn-action.btn-edit,
 .btn-action.btn-payments {
-    border-color: #6c757d;
-    color: #6c757d;
-    background: white;
+    background: #f0f0f0;  /* สีเทาอ่อน */
+    color: #666;        /* สีเทาเข้ม */
 }
 
+.btn-action.btn-edit:hover,
 .btn-action.btn-payments:hover {
-    background: #f8f9fa;
+    background: #e0e0e0; /* สีเทาเข้มขึ้นเมื่อ hover */
 }
 
 .btn-action.btn-delete {

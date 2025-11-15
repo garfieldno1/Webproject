@@ -10,6 +10,8 @@ const userRoutes = require('./routes/userRoutes');
 const facilityRoutes = require('./routes/facilityRoutes');
 const equipmentRoutes = require('./routes/equipmentRoutes');
 const tournamentRoutes = require('./routes/tournamentRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+const equipmentrentalRoutes = require('./routes/equipmentrentalRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000; 
@@ -39,6 +41,8 @@ app.use('/api', userRoutes);
 app.use('/api', facilityRoutes);
 app.use('/api', equipmentRoutes);
 app.use('/api', tournamentRoutes);
+app.use('/api', bookingRoutes);
+app.use('/api', equipmentrentalRoutes);
 
 
 // --- Start Server ---
