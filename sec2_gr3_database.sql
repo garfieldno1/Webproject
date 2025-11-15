@@ -68,6 +68,7 @@ CREATE TABLE EquipmentRental (
   RentalStartDateTime DATETIME NOT NULL,
   RentalEndDateTime DATETIME NOT NULL,
   ReturnDateTime DATETIME NULL,
+  Status VARCHAR(20) NOT NULL,
   User_ID CHAR(8) NOT NULL,    
   Equipment_ID CHAR(8) NOT NULL,  
   CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -76,12 +77,12 @@ CREATE TABLE EquipmentRental (
   FOREIGN KEY (Equipment_ID) REFERENCES Equipment(Equipment_ID) ON DELETE CASCADE
 );
 
-INSERT INTO EquipmentRental (EquipmentRental_ID, Quantity, RentalStartDateTime, RentalEndDateTime, ReturnDateTime, User_ID, Equipment_ID)
+INSERT INTO EquipmentRental (EquipmentRental_ID, Quantity, RentalStartDateTime, RentalEndDateTime, ReturnDateTime, Status, User_ID, Equipment_ID)
 VALUES
-('ER000001','2','2025-11-01 09:00:00','2025-11-01 11:00:00','2025-11-01 11:05:00','U0000002','E0000002'),
-('ER000002','4','2025-11-02 14:00:00','2025-11-02 16:00:00',NULL,'U0000003','E0000001'),
-('ER000003','1','2025-10-25 18:00:00','2025-10-25 20:00:00','2025-10-25 19:50:00','U0000001','E0000003');
-
+('ER000001','2','2025-09-01 09:00:00','2025-09-01 11:00:00','2025-11-01 11:05:00','Completed','U0000002','E0000002'),
+('ER000002','4','2025-09-02 14:00:00','2025-09-02 17:00:00',NULL,'Cancelled','U0000003','E0000001'),
+('ER000003','1','2025-10-25 18:00:00','2025-10-25 20:00:00','2025-10-25 20:05:12','In Use','U0000001','E0000003'),
+('ER000004','5','2025-10-26 20:00:00','2025-10-26 22:00:00','2025-10-26 22:07:00','Pending','U0000001','E0000003');
 CREATE TABLE Facility (
   Facility_ID CHAR(8) PRIMARY KEY,
   Name VARCHAR(100),
@@ -125,7 +126,7 @@ CREATE TABLE Booking (
 INSERT INTO Booking (Booking_ID, BookingDateTime, StartDateTime, EndDateTime, Status, User_ID, Facility_ID)
 VALUES
 ('B0000001','2025-10-20 09:00:00','2025-10-25 09:00:00','2025-10-25 11:00:00','Confirmed','U0000002','F0000002'),
-('B0000002','2025-10-21 10:00:00','2025-11-05 18:00:00','2025-11-05 20:00:00','Pending','U0000003','F0000003'),
+('B0000002','2025-10-21 10:00:00','2025-11-05 18:00:00','2025-11-05 20:00:00','Completed','U0000003','F0000003'),
 ('B0000003','2025-10-22 14:00:00','2025-11-10 07:00:00','2025-11-10 09:00:00','Cancelled','U0000001','F0000001');
 
 
@@ -162,7 +163,7 @@ INSERT INTO PaymentBooking (PaymentBooking_ID, PaymentMethod, Amount, PaymentDat
 VALUES
 ('PB000001','Credit Card',120,'2025-10-20 09:05:00','Paid','TRX001','B0000001'),
 ('PB000002','Bank Transfer',300,'2025-10-21 10:10:00','Failed','TRX002','B0000002'),
-('PB000003','Wallet',500,'2025-10-22 14:20:00','Refunded','TRX003','B0000003');
+('PB000003','Bank Transfer',300,'2025-10-21 10:20:00','Paid','TRX003','B0000002');
 
 CREATE TABLE Admin (
   Admin_ID CHAR(8) PRIMARY KEY,
@@ -202,8 +203,8 @@ CREATE TABLE Tournament (
 INSERT INTO Tournament (Tournament_ID, Name, SportType, StartDate, EndDate, RegistrationDeadline, Participants, Status)
 VALUES
 ('T0000001','UCL World Tour','Football','2026-01-10','2026-01-15','2025-12-20',16,'Scheduled'),
-('T0000002','Badminton Tournament','Badminton','2025-12-05','2025-12-07','2025-11-20',32,'Scheduled'),
-('T0000003','Ping Pong League','Ping Pong','2026-02-20','2026-02-24','2026-01-31',8,'Postponed');
+('T0000002','Badminton Tournament','Badminton','2025-12-05','2025-12-07','2025-11-20',32,'In Progress'),
+('T0000003','Ping Pong League','Ping Pong','2026-02-20','2026-02-24','2026-01-31',8,'Cancelled');
 
 CREATE TABLE Admin_manage_EQ (
   Admin_ID CHAR(8),

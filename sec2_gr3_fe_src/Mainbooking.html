@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/stylebooking.css">
 </head>
 <body>
-    <!-- แถบด้านบน -->
     <div class="top-nav">
         <div class="menu-icon">
             <span></span>
@@ -21,7 +20,6 @@
     </div>
 
     <div class="container">
-        <!-- แถบด้านซ้าย -->
         <aside class="sidebar">
             <div class="user-info">
                 <div class="user-avatar-large"></div>
@@ -71,24 +69,22 @@
             </nav>
         </aside>
 
-        <!-- ส่วนเนื้อหาหลัก -->
         <main class="main-content">
 
-            <!-- ช่องค้นหา -->
             <div class="search-filters">
                 <div class="filter-group">
                     <label>Username</label>
-                    <input type="text" class="filter-input" placeholder="">
+                    <input type="text" id="searchUsername" class="filter-input" placeholder="Username">
                 </div>
                 <div class="filter-group">
                     <label>Facility Name</label>
-                    <input type="text" class="filter-input" placeholder="">
+                    <input type="text" id="searchFacility" class="filter-input" placeholder="Facility Name">
                 </div>
                 <div class="filter-group">
                     <label>Status</label>
-                    <input type="text" class="filter-input" placeholder="">
+                    <input type="text" id="searchStatus" class="filter-input" placeholder="Status">
                 </div>
-                <button class="btn-search">
+                <button class="btn-search" id="btnSearch">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"></circle>
                         <path d="m21 21-4.35-4.35"></path>
@@ -96,230 +92,131 @@
                 </button>
             </div>
 
-            <!-- ตาราง -->
             <div class="facility-table">
                 <table>
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Booking ID</th>
                             <th>Username</th>
                             <th>Facility Name</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <!-- แถวที่ 1 -->
-                        <tr>
-                            <td>01</td>
-                            <td>Test-100 User</td>
-                            <td>Football Field 1</td>
-                            <td>
-                                <span class="status completed">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Completed
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 2 -->
-                        <tr>
-                            <td>02</td>
-                            <td>Test-101 User</td>
-                            <td>Football Field 2</td>
-                            <td>
-                                <span class="status cancelled">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                                    </svg>
-                                    Cancelled
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 3 -->
-                        <tr>
-                            <td>03</td>
-                            <td>Test-102 User</td>
-                            <td>Football Field 3</td>
-                            <td>
-                                <span class="status in-use">
-                                    <span class="status-dot"></span>
-                                    In Use
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 4 -->
-                        <tr>
-                            <td>04</td>
-                            <td>Test-103 User</td>
-                            <td>Badminton 1</td>
-                            <td>
-                                <span class="status in-use">
-                                    <span class="status-dot"></span>
-                                    In Use
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 5 -->
-                        <tr>
-                            <td>05</td>
-                            <td>Test-104 User</td>
-                            <td>Badminton 2</td>
-                            <td>
-                                <span class="status in-use">
-                                    <span class="status-dot"></span>
-                                    In Use
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 6 -->
-                        <tr>
-                            <td>06</td>
-                            <td>Test-105 User</td>
-                            <td>Badminton 3</td>
-                            <td>
-                                <span class="status confirmed">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Confirmed
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 7 -->
-                        <tr>
-                            <td>07</td>
-                            <td>Test-106 User</td>
-                            <td>Ping Pong 1</td>
-                            <td>
-                                <span class="status confirmed">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Confirmed
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- แถวที่ 8 -->
-                        <tr>
-                            <td>08</td>
-                            <td>Test-107 User</td>
-                            <td>Ping Pong 2</td>
-                            <td>
-                                <span class="status confirmed">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    Confirmed
-                                </span>
-                            </td>
-                            <td>
-                                <div class="actions">
-                                    <button class="btn-action btn-edit">✏️ Edit</button>
-                                    <button class="btn-action btn-payments">👁️ Payments</button>
-                                    <button class="btn-action btn-delete">✖️ Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="booking-table-body">
+                        </tbody>
                 </table>
             </div>
 
-            <!-- ปุ่มเพิ่มใหม่ -->
-            <button class="btn-add-new">+ Add New</button>
+            <button class="btn-add-new" id="btnAddNew">+ Add New</button>
         </main>
     </div>
 
     <script>
-        // ฟังก์ชันค้นหา
-        document.querySelector('.btn-search').addEventListener('click', function() {
-            // เอาค่าจากช่องค้นหา
-            var username = document.querySelectorAll('.filter-input')[0].value.toLowerCase();
-            var facilityName = document.querySelectorAll('.filter-input')[1].value.toLowerCase();
-            var status = document.querySelectorAll('.filter-input')[2].value.toLowerCase();
+        function getStatusHtml(status) {
+            let statusText = (status === 'Comfirmed') ? 'Confirmed' : status;
+            let statusClass = 'available'; // (Completed / Confirmed)
+            if (statusText === 'Cancelled') statusClass = 'ccancelled';
+            else if (statusText === 'In Use'|| statusText === 'Pending') statusClass = 'in-use';
             
-            // เอาทุกแถวในตาราง
-            var rows = document.querySelectorAll('tbody tr');
+            return `<span class="status ${statusClass}"><span class="status-dot"></span> ${statusText}</span>`;
+        }
+        // (ฟังก์ชัน loadBookings ไม่ต้องแก้ไข)
+        async function loadBookings() {
+            const username = document.getElementById('searchUsername').value;
+            const facilityName = document.getElementById('searchFacility').value;
+            const status = document.getElementById('searchStatus').value;
             
-            // วนตรวจแต่ละแถว
-            rows.forEach(function(row) {
-                var rowUsername = row.cells[1].textContent.toLowerCase();
-                var rowFacility = row.cells[2].textContent.toLowerCase();
-                var rowStatus = row.cells[3].textContent.toLowerCase();
-                
-                // ตรวจว่าตรงกับที่ค้นหาไหม
-                var matchUsername = !username || rowUsername.includes(username);
-                var matchFacility = !facilityName || rowFacility.includes(facilityName);
-                var matchStatus = !status || rowStatus.includes(status);
-                
-                // ถ้าตรงทั้งหมดก็แสดง ไม่ตรงก็ซ่อน
-                if (matchUsername && matchFacility && matchStatus) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
+            const params = new URLSearchParams({ username, facilityName, status });
 
-        // กด Enter ก็ค้นหาได้
+            try {
+                const response = await fetch(`/api/bookings?${params.toString()}`);
+                const bookings = await response.json();
+                if (!response.ok) {
+                    throw new Error(bookings.message || 'Error loading data');
+                }
+                const tbody = document.getElementById('booking-table-body');
+                tbody.innerHTML = ''; 
+                if (bookings.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">ไม่พบข้อมูล</td></tr>';
+                    return;
+                }
+                bookings.forEach((item, index) => {
+                    const formattedIndex = (index + 1).toString().padStart(2, '0');
+                    const statusHtml = getStatusHtml(item.Status);
+                    const html = `
+                        <tr>
+                            <td>${formattedIndex}</td>
+                            <td>${item.Booking_ID}</td>
+                            <td>${item.username}</td>
+                            <td>${item.FacilityName}</td>
+                            <td>${statusHtml}</td>
+                            <td>
+                                <div class="actions">
+                                    <button class="btn-action btn-edit" onclick="editBooking('${item.Booking_ID}')">✏️ Edit</button>
+                                    <button class="btn-action btn-payments" onclick="viewPayments('${item.Booking_ID}')">👁️ Payments</button>
+                                    <button class="btn-action btn-delete" onclick="deleteBooking('${item.Booking_ID}')">✕ Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.innerHTML += html;
+                });
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+                const tbody = document.getElementById('booking-table-body');
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: red;">${error.message}</td></tr>`;
+            }
+        }
+
+        // (ฟังก์ชัน editBooking ไม่ต้องแก้ไข)
+        function editBooking(id) {
+            window.location.href = `Editbooking.html?id=${id}`;
+        }
+        
+        // --- 🔥 นี่คือจุดที่แก้ไข ---
+        function viewPayments(id) {
+            // (เดิมคือ alert)
+            // เปลี่ยนเป็น:
+            window.location.href = `PaymentBooking.html?booking_id=${id}`;
+        }
+        // --- (จบส่วนที่แก้ไข) ---
+
+
+        // (ฟังก์ชัน deleteBooking ไม่ต้องแก้ไข)
+        async function deleteBooking(id) {
+            if (confirm(`คุณแน่ใจหรือไม่ว่าจะลบข้อมูลรหัส ${id} ?`)) {
+                try {
+                    const response = await fetch(`/api/bookings/${id}`, {
+                        method: 'DELETE'
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('✅ ลบข้อมูลสำเร็จ!');
+                        loadBookings(); // โหลดข้อมูลใหม่
+                    } else {
+                        alert('❌ ลบข้อมูลไม่สำเร็จ: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        // (Event Listeners ไม่ต้องแก้ไข)
+        document.getElementById('btnSearch').addEventListener('click', loadBookings);
+        document.getElementById('btnAddNew').addEventListener('click', function() {
+            window.location.href = 'Addbooking.html';
+        });
         document.querySelectorAll('.filter-input').forEach(function(input) {
             input.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    document.querySelector('.btn-search').click();
+                    document.getElementById('btnSearch').click();
                 }
             });
         });
+        window.onload = loadBookings;
     </script>
 </body>
 </html>
