@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/stylesuser.css">
 </head>
 <body>
-    <!-- Top Navigation -->
     <nav class="top-nav">
         <div class="menu-icon">
             <span></span>
@@ -21,7 +20,6 @@
     </nav>
 
     <div class="container">
-        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="user-info">
                 <div class="user-avatar-large"></div>
@@ -71,7 +69,6 @@
             </nav>
         </aside>
 
-        <!-- Main Content - Edit User Page -->
         <main class="main-content edit-page">
             <div class="back-button">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -104,29 +101,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Gender</label>
-                    <div class="gender-options">
-                        <button type="button" class="gender-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="10" cy="14" r="6"></circle>
-                                <line x1="16" y1="8" x2="19" y2="5"></line>
-                                <line x1="19" y1="5" x2="19" y2="9"></line>
-                                <line x1="19" y1="5" x2="15" y2="5"></line>
-                            </svg>
-                        </button>
-                        <button type="button" class="gender-btn active">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="14" r="6"></circle>
-                                <path d="M12 8v-6M9 2h6"></path>
-                            </svg>
-                        </button>
-                        <button type="button" class="gender-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <circle cx="12" cy="12" r="8"></circle>
-                            </svg>
-                        </button>
-                    </div>
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-select">
+                        <option value="" disabled>Select Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -136,7 +117,7 @@
 
                 <div class="form-group">
                     <label for="dob">Date of Birth</label>
-                    <input type="text" id="dob" class="form-input" value="2005/10/16" placeholder="Date of Birth">
+                    <input type="date" id="dob" class="form-input" value="2005/10/16" placeholder="Date of Birth">
                 </div>
 
                <div class="form-group">
@@ -151,12 +132,11 @@
     </div>
 
 <script>
-        // 1. ดึง ID จาก URL (เช่น Edituser.html?id=U0000001)
+        // 1. ดึง ID จาก URL (เหมือนเดิม)
         const urlParams = new URLSearchParams(window.location.search);
         const userId = urlParams.get('id');
 
-        // ตัวแปรเก็บค่าเพศ (M, F, N/A)
-        let selectedGender = 'M'; 
+        // (🔥 ลบ 'let selectedGender = 'M';' ทิ้ง)
 
         // 2. ฟังก์ชันโหลดข้อมูลเก่ามาใส่ Input
         async function loadUserData() {
@@ -172,28 +152,23 @@
                 if (!response.ok) throw new Error(user.message);
 
                 // ใส่ข้อมูลลงในช่อง Input
-                document.querySelector('h1.page-title').innerText = `Edit User (${user.username})`; // เปลี่ยนหัวข้อ
+                document.querySelector('h1.page-title').innerText = `Edit User (${user.username})`; 
                 document.getElementById('firstName').value = user.FName || '';
                 document.getElementById('lastName').value = user.LName || '';
                 document.getElementById('phone').value = user.Tel || '';
                 document.getElementById('email').value = user.Email || '';
                 document.getElementById('address').value = user.Address || '';
                 
-                // จัดการวันที่ (ตัดเวลาทิ้ง เอาแค่ YYYY-MM-DD)
                 if (user.DateOfBirth) {
                     const dateObj = new Date(user.DateOfBirth);
-                    // ใช้ en-CA เพื่อให้ได้ format YYYY-MM-DD สำหรับใส่ใน input type="date"
                     const dateStr = dateObj.toLocaleDateString('en-CA');
                     document.getElementById('dob').value = dateStr;
                 }
 
-             document.getElementById('role').value = user.Role; 
+                document.getElementById('role').value = user.Role; 
                 
-                // เก็บค่าไว้ส่งกลับ (เหมือนเดิม)
-                currentRole = user.Role;
-
-                // จัดการปุ่มเพศ (Gender)
-                selectGenderButton(user.Gender);
+                // 🔥 แก้ไข: ตั้งค่า Dropdown 'gender' ตามข้อมูลที่ดึงมา
+                document.getElementById('gender').value = user.Gender || '';
 
             } catch (error) {
                 console.error('Error:', error);
@@ -201,26 +176,11 @@
             }
         }
 
-        // 3. ฟังก์ชันจัดการปุ่มเลือกเพศ (Interactive)
-        const genderBtns = document.querySelectorAll('.gender-btn');
-        
-        // เรียงลำดับปุ่ม: 0=ชาย(M), 1=หญิง(F), 2=อื่นๆ(N) *เช็คจาก icon SVG ของคุณ
-        genderBtns[0].onclick = () => selectGenderButton('M');
-        genderBtns[1].onclick = () => selectGenderButton('F');
-        genderBtns[2].onclick = () => selectGenderButton('O');
-
-        function selectGenderButton(gender) {
-            selectedGender = gender; // เก็บค่าไว้เตรียมส่ง
-            genderBtns.forEach(btn => btn.classList.remove('active')); // ลบ active ทั้งหมดก่อน
-
-            if (gender === 'M') genderBtns[0].classList.add('active');
-            else if (gender === 'F') genderBtns[1].classList.add('active');
-            else genderBtns[2].classList.add('active');
-        }
-
+        // 3. (🔥 ลบฟังก์ชันจัดการปุ่ม Gender (genderBtns, selectGenderButton) ทั้งหมดทิ้ง)
+       
         // 4. ฟังก์ชันบันทึกข้อมูล (เมื่อกด Confirm)
         document.querySelector('.edit-form').addEventListener('submit', async (e) => {
-            e.preventDefault(); // กันหน้าเว็บรีเฟรช
+            e.preventDefault(); 
 
             // เตรียมข้อมูล JSON
             const updatedData = {
@@ -231,7 +191,8 @@
                 Address: document.getElementById('address').value,
                 DateOfBirth: document.getElementById('dob').value,
                 Role: document.getElementById('role').value,
-                Gender: selectedGender
+                // 🔥 แก้ไข: ดึงค่าจาก Dropdown 'gender'
+                Gender: document.getElementById('gender').value
             };
 
             try {
@@ -256,7 +217,7 @@
             }
         });
 
-        // ปุ่ม Back
+        // ปุ่ม Back (เหมือนเดิม)
         document.querySelector('.back-button').onclick = () => {
             window.history.back();
         };
@@ -264,6 +225,14 @@
         // เริ่มทำงานเมื่อโหลดหน้า
         window.onload = loadUserData;
 
+        // (โค้ด Logout เหมือนเดิม)
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+            if (confirm('คุณต้องการ Logout และกลับไปหน้า Landing หรือไม่?')) {
+                sessionStorage.clear();
+                localStorage.clear();
+                window.location.href = '/'; 
+            }
+        });
     </script>
 
 </body>

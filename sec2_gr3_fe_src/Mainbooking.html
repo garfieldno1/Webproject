@@ -114,12 +114,21 @@
     </div>
 
     <script>
-        function getStatusHtml(status) {
+   function getStatusHtml(status) {
             let statusText = (status === 'Comfirmed') ? 'Confirmed' : status;
-            let statusClass = 'available'; // (Completed / Confirmed)
-            if (statusText === 'Cancelled') statusClass = 'ccancelled';
-            else if (statusText === 'In Use'|| statusText === 'Pending') statusClass = 'in-use';
             
+            // 1. กำหนดคลาส CSS เริ่มต้น
+            // (ใช้ 'available' สำหรับ Completed/Confirmed ซึ่งจะแมทช์กับ .status.available .status-dot (สีเขียว))
+            let statusClass = 'available'; 
+            
+            // 2. เช็คเงื่อนไข
+            if (statusText === 'Cancelled') {
+                statusClass = 'closed'; // 🔥 เปลี่ยนจาก 'cancelled' เป็น 'closed' เพื่อให้แมทช์กับ .status.closed .status-dot (สีแดง)
+            } else if (statusText === 'In Use' || statusText === 'Pending') {
+                statusClass = 'in-use'; // (จะแมทช์กับ .status.in-use .status-dot (สีเหลือง))
+            }
+            
+            // 3. คืนค่า HTML ที่ใช้จุด (status-dot)
             return `<span class="status ${statusClass}"><span class="status-dot"></span> ${statusText}</span>`;
         }
         // (ฟังก์ชัน loadBookings ไม่ต้องแก้ไข)
@@ -217,6 +226,17 @@
             });
         });
         window.onload = loadBookings;
+
+                document.querySelector('.menu-icon').addEventListener('click', function() {
+            if (confirm('คุณต้องการ Logout และกลับไปหน้า Landing หรือไม่?')) {
+                // เคลียร์ข้อมูล Login (ถ้ามี)
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                // กลับไปหน้า Landing.html (ซึ่งอยู่ที่ root '/')
+                window.location.href = '/'; 
+            }
+        });
     </script>
 </body>
 </html>

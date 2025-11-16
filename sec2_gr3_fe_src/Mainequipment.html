@@ -199,6 +199,17 @@
 
         document.getElementById('btnSearch').addEventListener('click', fetchEquipments);
         window.onload = fetchEquipments;
+
+                document.querySelector('.menu-icon').addEventListener('click', function() {
+            if (confirm('คุณต้องการ Logout และกลับไปหน้า Landing หรือไม่?')) {
+                // เคลียร์ข้อมูล Login (ถ้ามี)
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                // กลับไปหน้า Landing.html (ซึ่งอยู่ที่ root '/')
+                window.location.href = '/'; 
+            }
+        });
     </script>
 </body>
 </html>

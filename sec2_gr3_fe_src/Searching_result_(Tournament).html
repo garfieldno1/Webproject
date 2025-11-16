@@ -6,6 +6,9 @@
     <title>Tournament Results - Sport Hub</title>
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/main-style.css">
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/results-f-t-style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body class="tournament">
 
@@ -16,7 +19,7 @@
                 <ul>
                     <li><a href="Facility.html">Facility</a></li>
                     <li><a href="Tournament.html">Tournament</a></li>
-                    <li><a href="#">Booking Check</a></li>
+                   <li><a href="#" id="booking-check-link">Booking Check</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -32,7 +35,7 @@
     <main>
         <div class="container">
             <div class="detail-header">
-                <h1>Tournament</h1>
+                <h1>Search Results (Tournament)</h1>
                 <a href="Search.html" class="back-link">&lt; Back</a>
             </div>
 
@@ -40,7 +43,7 @@
 
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/football-tournament.jpg" alt="Football Tournament Poster">
+                         <a href="Detail_Tournament_Football.html"><img src="/sec2_gr3_fe_src/img/football-tournament.jpg" alt="Football Tournament Poster"></a>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">UCL World Tour</h3>
@@ -54,7 +57,7 @@
 
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/badminton-tournament.jpg" alt="Badminton Tournament Poster">
+                         <a href="Detail_Tournament_Badminton.html"><img src="/sec2_gr3_fe_src/img/badminton-tournament.jpg" alt="Badminton Tournament Poster"></a>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Badminton Tournament</h3>
@@ -68,7 +71,7 @@
 
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/pingpong-tournament.jpg" alt="Ping Pong Tournament Poster">
+                        <a href="Detail_Tournament_Pingpong.html"><img src="/sec2_gr3_fe_src/img/pingpong-tournament.jpg" alt="Ping Pong Tournament Poster"></a> 
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Ping Pong League</h3>
@@ -88,5 +91,22 @@
         <div class="container"></div>
     </footer>
 
+    <script>
+        // 1. ค้นหาลิงก์ "Booking Check" ที่เราเพิ่งเพิ่ม ID ให้
+        const bookingCheckLink = document.getElementById('booking-check-link');
+
+        // 2. เพิ่ม Event Listener เพื่อดักฟังการ "คลิก"
+        bookingCheckLink.addEventListener('click', function(event) {
+            
+            // 3. หยุดการทำงานปกติของลิงก์ (กันไม่ให้หน้าเว็บเด้งไปด้านบน)
+            event.preventDefault(); 
+            
+            // 4. แสดงข้อความแจ้งเตือนตามที่คุณต้องการ
+            alert('Please Login First !');
+
+            // 5. (แนะนำ) เมื่อผู้ใช้กด "OK" ให้พาไปหน้า Login
+            window.location.href = 'Choose_login.html';
+        });
+    </script>
 </body>
 </html>

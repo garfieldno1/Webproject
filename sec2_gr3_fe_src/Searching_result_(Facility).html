@@ -6,6 +6,9 @@
     <title>Facility Results - Sport Hub</title>
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/main-style.css">
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/results-f-t-style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,7 +19,7 @@
                 <ul>
                     <li><a href="Facility.html">Facility</a></li>
                     <li><a href="Tournament.html">Tournament</a></li>
-                    <li><a href="#">Booking Check</a></li>
+                    <li><a href="#" id="booking-check-link">Booking Check</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -32,16 +35,16 @@
     <main>
         <div class="container">
             <div class="detail-header">
-                <h1>Facility</h1>
-                <a href="javascript:history.back()" class="back-link">&lt; Back</a>
+                <h1>Search Results (Facility)</h1>
+                <a href="Search.html" class="back-link">&lt; Back</a>
             </div>
 
-            <div class="results-grid">
+            <div class="results-grid">  
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/footbal.jpg" alt="Football Field">
+                         <a href="Detail_football.html"><img src="/sec2_gr3_fe_src/img/footbal.jpg" alt="Football Field"></a>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-f">
                         <h3 class="card-title">Football</h3>
                         <p class="card-info">ประเภท : ฟุตบอล</p>
                         <p class="card-info">คำอธิบาย : XXXXXXX</p>
@@ -55,9 +58,9 @@
 
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/badminton.jpg" alt="Badminton Court">
+                        <a href="Detail_badminton.html"><img src="/sec2_gr3_fe_src/img/badminton.jpg" alt="Badminton Court"></a>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-f">
                         <h3 class="card-title">Badminton</h3>
                         <p class="card-info">ประเภท : แบดมินตัน</p>
                         <p class="card-info">คำอธิบาย : XXXXXXX</p>
@@ -71,9 +74,9 @@
 
                 <div class="result-card">
                     <div class="card-image">
-                        <img src="/sec2_gr3_fe_src/img/pingpong.jpg" alt="Ping Pong Table">
+                        <a href="Detail_pingpong.html"><img src="/sec2_gr3_fe_src/img/pingpong.jpg" alt="Ping Pong Table"></a>
                     </div>
-                    <div class="card-content">
+                    <div class="card-content-f">
                         <h3 class="card-title">Ping Pong</h3>
                         <p class="card-info">ประเภท : ปิงปอง</p>
                         <p class="card-info">คำอธิบาย : XXXXXXX</p>
@@ -85,6 +88,8 @@
                     </div>
                 </div>
 
+                
+
             </div>
         </div>
     </main>
@@ -93,5 +98,23 @@
         <div class="container"></div>
     </footer>
 
+    <script>
+// 1. ค้นหาลิงก์ "Booking Check" ที่เราเพิ่งเพิ่ม ID ให้
+        const bookingCheckLink = document.getElementById('booking-check-link');
+
+        // 2. เพิ่ม Event Listener เพื่อดักฟังการ "คลิก"
+        bookingCheckLink.addEventListener('click', function(event) {
+            
+            // 3. หยุดการทำงานปกติของลิงก์ (กันไม่ให้หน้าเว็บเด้งไปด้านบน)
+            event.preventDefault(); 
+            
+            // 4. แสดงข้อความแจ้งเตือนตามที่คุณต้องการ
+            alert('Please Login First !');
+
+            // 5. (แนะนำ) เมื่อผู้ใช้กด "OK" ให้พาไปหน้า Login
+            window.location.href = 'Choose_login.html';
+        });
+
+    </script>
 </body>
 </html>

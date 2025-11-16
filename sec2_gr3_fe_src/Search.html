@@ -6,6 +6,9 @@
     <title>Advanced Search - Sport Hub</title>
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/main-style.css">
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/search-style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -18,7 +21,7 @@
                 <ul>
                     <li><a href="Facility.html">Facility</a></li>
                     <li><a href="Tournament.html">Tournament</a></li>
-                    <li><a href="#">Booking Check</a></li>
+                    <li><a href="#" id="booking-check-link">Booking Check</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -35,7 +38,7 @@
         <div class="container">
             <h1 class="search-title">Advanced Search</h1>
 
-            <form class="search-form">
+            <form class="search-form" id="search-form">
                 <div class="form-group">
                     <label for="service">Service</label>
                     <select id="service" name="service">
@@ -79,6 +82,59 @@
         <div class="container">
             </div>
     </footer>
+
+<script>
+    // 1. รอให้หน้าเว็บโหลดเสร็จก่อน
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 2. หาฟอร์มค้นหา
+        const searchForm = document.querySelector('.search-form');
+        
+        // 3. หาช่องเลือก Service
+        const serviceSelect = document.getElementById('service');
+
+        // 4. ดักฟังเหตุการณ์เมื่อฟอร์มถูก "กดปุ่ม Submit" (ปุ่ม Search)
+        searchForm.addEventListener('submit', function(event) {
+            
+            // 5. หยุดการทำงานปกติของฟอร์ม (กันไม่ให้หน้าเว็บรีเฟรช)
+            event.preventDefault(); 
+
+            // 6. ดึงค่าที่ผู้ใช้เลือกจาก dropdown (เช่น 'facility' หรือ 'tournament')
+            const selectedService = serviceSelect.value;
+
+            // 7. ตรวจสอบค่าที่เลือก
+            if (selectedService === 'facility') {
+                // ถ้าเลือก 'facility' ให้ย้ายไปหน้า Facility
+                window.location.href = 'Searching_result_(Facility).html';
+            } 
+            else if (selectedService === 'tournament') {
+                // ถ้าเลือก 'tournament' ให้ย้ายไปหน้า Tournament
+                window.location.href = 'Searching_result_(Tournament).html';
+            } 
+            else {
+                // กรณีที่ผู้ใช้ยังไม่ได้เลือกอะไรเลย
+                alert('Please select a service (Facility or Tournament).');
+            }
+        });
+    });
+
+    // 1. ค้นหาลิงก์ "Booking Check" ที่เราเพิ่งเพิ่ม ID ให้
+        const bookingCheckLink = document.getElementById('booking-check-link');
+
+        // 2. เพิ่ม Event Listener เพื่อดักฟังการ "คลิก"
+        bookingCheckLink.addEventListener('click', function(event) {
+            
+            // 3. หยุดการทำงานปกติของลิงก์ (กันไม่ให้หน้าเว็บเด้งไปด้านบน)
+            event.preventDefault(); 
+            
+            // 4. แสดงข้อความแจ้งเตือนตามที่คุณต้องการ
+            alert('Please Login First !');
+
+            // 5. (แนะนำ) เมื่อผู้ใช้กด "OK" ให้พาไปหน้า Login
+            window.location.href = 'Choose_login.html';
+        });
+</script>
+
 
 </body>
 </html>

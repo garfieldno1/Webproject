@@ -6,35 +6,27 @@
     <title>Organization Management</title>
     <link rel="stylesheet" href="/sec2_gr3_fe_src/css/stylesuser.css">
    <style>
-        /* ปรับ Grid */
         .table-header, .user-row {
             display: grid;
-            /* 🔥 แก้ไข: เพิ่ม 100px สำหรับ UserID หลัง 50px */
-            grid-template-columns: 50px 100px 70px 1fr 1.2fr 1fr 0.8fr 180px;
+            grid-template-columns: 50px 100px 1fr 1.2fr 1fr 0.8fr 180px;
             gap: 15px;
             align-items: center;
         }
-
-        /* จัดตัวหนังสือและปุ่มให้ชิดซ้ายปกติก่อน แล้วค่อยขยับ */
         .th, .td {
             text-align: left;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-
-        /* 🔥 ส่วนจัดการปุ่ม (Actions) */
         .td.actions {
             display: flex;
-            justify-content: center; /* จัดกลุ่มปุ่มให้อยู่กึ่งกลางของช่อง */
+            justify-content: center;
             gap: 10px;
         }
-
-        /* 🔥 ส่วนหัวข้อ (Actions) - จุดที่แก้ */
         .th:last-child {
             display: flex;
-            justify-content: center; /* เริ่มจากกึ่งกลาง */
-            padding-right: 110px;     /* 👈 ดันขวาเข้ามา 60px เพื่อให้คำว่า Actions ขยับไปซ้ายไปตรงกับปุ่ม Edit */
+            justify-content: center;
+            padding-right: 110px;
         }
     </style>
 </head>
@@ -57,9 +49,7 @@
                 <div class="user-avatar-large"></div>
                 <h3>Admin user</h3>
             </div>
-
             <h2 class="sidebar-title">Organization Management</h2>
-
             <nav class="sidebar-nav">
                 <a href="#" class="nav-item active">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -127,14 +117,12 @@
                 <div class="table-header">
                     <div class="th">No.</div>
                     <div class="th">User ID</div>
-                    <div class="th">Pic</div>
                     <div class="th">Username</div>
                     <div class="th">E-mail</div>
                     <div class="th">BirthDate</div>
                     <div class="th">Role</div>
                     <div class="th">Actions</div>
                 </div>
-
                <div id="user-data-container"></div>
             </div>
 
@@ -146,49 +134,33 @@
     </div>
 
     <script>
-        // ฟังก์ชันสำหรับดึงข้อมูลผู้ใช้
+        // (ฟังก์ชัน fetchUsers, editUser, deleteUser )
         async function fetchUsers() {
             const username = document.getElementById('searchUsername').value;
             const email = document.getElementById('searchEmail').value;
             const role = document.getElementById('searchRole').value;
-
             const params = new URLSearchParams({ username, email, role });
-            
             try {
                 const response = await fetch(`/api/users?${params.toString()}`);
                 const users = await response.json();
-
                 const container = document.getElementById('user-data-container');
                 container.innerHTML = ''; 
-
                 if (users.length === 0) {
-                    // 1 / -1 หมายถึง เริ่มที่เส้นแรก จบที่เส้นสุดท้าย (กินเต็มความกว้าง)
-                    container.innerHTML = `
-                        <div class="user-row" style="justify-content: center">
-                            <div style="grid-column: 1 / -1; text-align: center; ; font-size: 14px;">
-                                ไม่พบข้อมูล
-                            </div>
-                        </div>
-                    `;
+                    container.innerHTML = `<div class="user-row" style="justify-content: center"><div style="grid-column: 1 / -1; text-align: center; ; font-size: 14px;">ไม่พบข้อมูล</div></div>`;
                     return;
                 }
-
                 users.forEach((user, index) => {
                     const rowClass = index % 2 === 0 ? 'user-row' : 'user-row alt';
                     const formattedIndex = (index + 1).toString().padStart(2, '0');
-
-                    // 🔥 แปลงวันที่ (ตัดเวลาทิ้งเอาแค่ YYYY-MM-DD)
                     let birthDateStr = '-';
                     if (user.DateOfBirth || user.BirthDate) { 
                      const dateObj = new Date(user.DateOfBirth || user.BirthDate);
-                    // ใช้ toLocaleDateString('en-CA') จะได้ format YYYY-MM-DD ตามเวลาเครื่องผู้ใช้ (ไม่อิง UTC)
                     birthDateStr = dateObj.toLocaleDateString('en-CA'); 
                     }
                     const html = `
                         <div class="${rowClass}">
                             <div class="td">${formattedIndex}</div>
                             <div class="td">${user.User_id}</div>
-                            <div class="td"><div class="avatar"></div></div>
                             <div class="td">${user.username}</div>
                             <div class="td email">${user.Email}</div>
                             <div class="td">${birthDateStr}</div>
@@ -201,7 +173,6 @@
                     `;
                     container.innerHTML += html;
                 });
-
             } catch (error) {
                 console.error('Error loading users:', error);
             }
@@ -217,9 +188,7 @@
                     const response = await fetch(`/api/users/${id}`, {
                         method: 'DELETE'
                     });
-                    
                     const result = await response.json();
-
                     if (result.success) {
                         alert('✅ ลบข้อมูลสำเร็จ!');
                         fetchUsers(); 
@@ -234,6 +203,18 @@
 
         document.getElementById('btnSearch').addEventListener('click', fetchUsers);
         window.onload = fetchUsers;
+
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+            if (confirm('คุณต้องการ Logout และกลับไปหน้า Landing หรือไม่?')) {
+                // เคลียร์ข้อมูล Login (ถ้ามี)
+                sessionStorage.clear();
+                localStorage.clear();
+                
+                // กลับไปหน้า Landing.html (ซึ่งอยู่ที่ root '/')
+                window.location.href = '/'; 
+            }
+        });
+
     </script>
 </body>
 </html>

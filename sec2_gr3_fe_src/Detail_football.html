@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SportHub</title>
+  <title>Football -SportHub</title>
   <link rel="stylesheet" href="/sec2_gr3_fe_src/css/main-style.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
         <div class="container">
-            <a href="#" class="logo">
+            <a href="Landing.html" class="logo">
                 <img src="/sec2_gr3_fe_src/img/LOGO.png" alt="Sport Hub Logo" >
             </a>
             <nav>
                 <ul>
                     <li><a href="Facility.html">Facility</a></li>
                     <li><a href="Tournament.html">Tournament</a></li>
-                    <li><a href="#">Booking Check</a></li>
+                    <li><a href="#" id="booking-check-link">Booking Check</a></li>
                     <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -42,29 +45,29 @@
             <div class="info-section">
                 <h2 class="info-title">Football</h2>
                 
-                <div class="info-item">
-                    <span class="info-label">ประเภท : ฟุตบอล</span>
+                 <div class="info-item">
+                    <span class="info-label">Sport Type : Football</span>
                 </div>
 
                 <div class="info-item">
-                    <span class="info-label">คำอธิบาย :</span>
+                    <span class="info-label">Description :</span>
                     <span class="description-text">xxxxxxxxxxxxxxxxxxxxxxxxx</span>
                 </div>
 
                 <div class="info-item">
-                    <span class="info-label">จำนวนสนาม :</span> xx
+                    <span class="info-label">Number of fields :</span> xx
                 </div>
 
                 <div class="info-item">
-                    <span class="info-label">ราคา :</span> xx
+                    <span class="info-label"> PricePerHour :</span> xx
                 </div>
 
                 <div class="info-item">
-                    <span class="info-label">เวลา เปิดปิด :</span> xx:xx:xx - xx:xx:xx
+                    <span class="info-label">Open–close time :</span> xx:xx:xx - xx:xx:xx
                 </div>
 
                 <div class="info-item">
-                    <span class="info-label">สถานะ :</span> xxxxxxxx
+                    <span class="info-label">Status :</span> xxxxxxxx
                 </div>
 
                 <button class="booking-btn-detail" onclick="bookNow()">Booking Now!</button>
@@ -75,5 +78,23 @@
     <footer>
         <div class="container"></div>
     </footer>
+     <script>
+// 1. ค้นหาลิงก์ "Booking Check" ที่เราเพิ่งเพิ่ม ID ให้
+        const bookingCheckLink = document.getElementById('booking-check-link');
+
+        // 2. เพิ่ม Event Listener เพื่อดักฟังการ "คลิก"
+        bookingCheckLink.addEventListener('click', function(event) {
+            
+            // 3. หยุดการทำงานปกติของลิงก์ (กันไม่ให้หน้าเว็บเด้งไปด้านบน)
+            event.preventDefault(); 
+            
+            // 4. แสดงข้อความแจ้งเตือนตามที่คุณต้องการ
+             alert('Please Login First !');
+
+            // 5. (แนะนำ) เมื่อผู้ใช้กด "OK" ให้พาไปหน้า Login
+            window.location.href = 'Choose_login.html';
+        });
+
+    </script>
 </body>
 </html>
