@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: sans-serif; 
+    font-family: 'Prompt', sans-serif;
     background-color: #F8F9FA; /* Off-white background for the page */
     color: #333;
     line-height: 1.7;
@@ -132,6 +132,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1.5rem; /* Space between the two images */
+    margin-top: 1.5rem;
 }
 
 .image-container img {
@@ -142,24 +143,38 @@ main {
 .right-column{
  flex: 1.2; /* Takes up 1.2 parts, making it slightly wider */
 }
-.right-column h1{
-  color: #1E8449; /* Dark green for the heading */
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
+.main-welcome-title { 
+  font-family: 'Teko', sans-serif; /* 👈 (1) เรียกใช้ Font */
+  font-weight: 700;               /* 👈 (2) กำหนดน้ำหนักตัวหนา */
+  font-size: 4.5rem;              /* 👈 (3) เพิ่มขนาด (เพราะ Teko ตัวผอม) */
+  line-height: 1.1;               /* 👈 (4) ปรับระยะห่างบรรทัด */
+  color: #1E8449;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 .content-section {
-    background-color: #F1F3F4; /* Light grey background for the content box */
+    background-color: #FFFFFF; /* เปลี่ยนเป็นสีขาว */
     padding: 2.5rem;
     border-radius: 20px ;
+    /* เพิ่ม 2 บรรทัดนี้เข้าไป */
+    border: 1px solid #EAEAEA; /* (Optional) เพิ่มขอบจางๆ */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* เพิ่มเงาให้ดูมีมิติ */
 }
-
 
 .content-section p {
     margin-bottom: 1.5rem;
-    color: #555; /* Slightly lighter text color for paragraphs */
+    color: #555; 
     font-size: 18px;
-   
-    
+    /* เพิ่มบรรทัดนี้ */
+    text-indent: 2em; /* ย่อหน้าบรรทัดแรก (2em ~ 4-5 ตัวอักษรไทย) */
+}
+
+/* (เพิ่ม) เราไม่ต้องการย่อหน้า ย่อหน้าสุดท้าย
+  หรือย่อหน้าที่อยู่ติดกับย่อหน้าที่เราจัดรูปแบบพิเศษ
+*/
+.content-section p:last-of-type {
+    text-indent: 0; /* ย่อหน้าสุดท้ายไม่ต้องย่อหน้าก็ได้ */
+    margin-bottom: 0; /* ไม่ต้องเว้นล่าง ถ้ามันคืออันสุดท้ายก่อนไอคอน */
 }
 
 .social-icons {
@@ -374,4 +389,58 @@ transition: all 0.2s ease-in-out;
     .team-grid {
         gap: 1.5rem;
     }
+}
+
+.map-title {
+    font-family: 'Teko', sans-serif;  /* 👈 (1) เพิ่มบรรทัดนี้ */
+    font-weight: 700;                /* 👈 (2) แก้ไข (ให้เหมือน h1) */
+    font-size: 3.5rem;               /* 👈 (3) เพิ่มขนาดให้ดูเด่นขึ้น */
+    color: #1E8449;
+    margin-top: 2.5rem;
+}
+
+.map-container {
+    margin-top: 0.2rem; /* เว้นระยะห่างจากกล่องข้อความด้านบน */
+    border-radius: 20px; /* ทำให้ขอบมนเหมือนกล่องข้อความ */
+    overflow: hidden; /* ซ่อนขอบ iframe ที่เป็นสี่เหลี่ยม (สำคัญ!) */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเหมือน content-section */
+    border: 1px solid #EAEAEA; /* (Optional) เพิ่มขอบจางๆ */
+}
+
+.map-container iframe {
+    width: 100%;    /* ให้แผนที่กว้างเต็มกล่อง .map-container */
+    height: 400px;  /* กำหนดความสูงของแผนที่ตามต้องการ */
+    border: 0;      /* ลบเส้นขอบสีเทาของ iframe ออก */
+    display: block; /* แก้ไขปัญหาช่องว่างเล็กๆ ใต้ iframe */
+}
+
+/* --- Weather Widget Styles --- */
+#weather-widget {
+    display: flex; /* จัดเรียงแนวนอน */
+    align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    background-color: #d1f0d1; /* สีพื้นหลังจางๆ */
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 2rem; /* เว้นระยะห่างจากย่อหน้าด้านล่าง */
+    border: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+}
+
+#weather-widget strong {
+    margin-right: 0.75rem;
+    color: #1E8449; /* สีเขียวของธีม */
+}
+
+#weather-widget .weather-icon {
+    width: 35px; /* ขนาดไอคอน */
+    height: 35px;
+    margin-right: 0.25rem;
+    background-color: #000000;
+    border-radius: 12px;
+}
+
+#weather-widget span {
+    font-weight: 700;
+    color: #000000;
+    font-weight: 700
 }

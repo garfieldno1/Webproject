@@ -22,14 +22,13 @@ CREATE TABLE users (
 
 INSERT INTO users (User_id, username, password, FName, LName, Email, Tel, Gender, DateOfBirth, LastLogin, Address, Role, Status)
 VALUES
-('U0000001','admin1','adminpass','Somchai','Deemak','admin1@gmail.com','0890000001','M','2005-05-10','2025-10-30 08:00:00','Bangkok','Staff','Active'),
+('U0000001','Staff1','staffpass','Sompon','Rakdee','admin1@gmail.com','0890000001','M','2005-05-10','2025-10-30 08:00:00','Bangkok','Staff','Active'),
 ('U0000002','somjai','somjai1234','Somjai','Maidee','somjai@gmail.com','0890000002','F','1995-11-20','2025-10-30 08:00:00','Nan','User','Active'),
 ('U0000003','somying','somying1234','Somying','Deelerd','somying@gmail.com','0890000003','F','1998-03-05','2025-10-30 08:00:00','Angthong','User','Active');
 
 CREATE TABLE LoginHistory (
   LoginHistory_ID CHAR(8) PRIMARY KEY,
   User_ID CHAR(8) NOT NULL,
-  password VARCHAR(100) NOT NULL,
   LoginTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   LogoutTime TIMESTAMP NULL,
   IPAddress VARCHAR(45),
@@ -38,11 +37,10 @@ CREATE TABLE LoginHistory (
   FOREIGN KEY (User_ID) REFERENCES users(User_id) ON DELETE CASCADE
 );
 
-INSERT INTO LoginHistory (LoginHistory_ID, User_ID, password, LoginTime, LogoutTime, IPAddress, DeviceInfo, Status)
+INSERT INTO LoginHistory (LoginHistory_ID, User_ID, LoginTime, LogoutTime, IPAddress, DeviceInfo, Status)
 VALUES
-('L0000001','U0000001','adminpass','2025-10-01 08:00:00','2025-10-01 09:30:00','192.168.1.1','Chrome','Online'),
-('L0000002','U0000002','somjai1234','2025-10-02 10:15:00','2025-10-02 12:00:00','192.0.2.10','Firefox','Offline'),
-('L0000003','U0000003','somying1234','2025-10-03 18:20:00','2025-10-03 22:00:00','203.0.113.5','Safari','Idle');
+('L0000001','U0000001','2025-10-01 08:00:00','2025-10-01 09:30:00','192.168.1.1','Chrome','Online');
+
 
 CREATE TABLE Equipment (
   Equipment_ID CHAR(8) PRIMARY KEY, 
@@ -125,9 +123,9 @@ CREATE TABLE Booking (
 
 INSERT INTO Booking (Booking_ID, BookingDateTime, StartDateTime, EndDateTime, Status, User_ID, Facility_ID)
 VALUES
-('B0000001','2025-10-20 09:00:00','2025-10-25 09:00:00','2025-10-25 11:00:00','Confirmed','U0000002','F0000002'),
-('B0000002','2025-10-21 10:00:00','2025-11-05 18:00:00','2025-11-05 20:00:00','Completed','U0000003','F0000003'),
-('B0000003','2025-10-22 14:00:00','2025-11-10 07:00:00','2025-11-10 09:00:00','Cancelled','U0000001','F0000001');
+('B0000001','2025-10-20 09:00:00','2025-10-20 09:30:00','2025-10-20 11:00:00','Completed','U0000002','F0000002'),
+('B0000002','2025-10-21 10:00:00','2025-10-21 18:00:00','2025-10-21 20:00:00','In Use','U0000003','F0000003'),
+('B0000003','2025-10-22 07:00:00','2025-10-22 07:30:00','2025-10-22 09:00:00','Cancelled','U0000001','F0000001');
 
 
 CREATE TABLE PaymentEquipmentRental (
@@ -144,8 +142,7 @@ CREATE TABLE PaymentEquipmentRental (
 INSERT INTO PaymentEquipmentRental (PaymentEquipmentRental_ID, Amount, CreatedAt, PaymentStatus, PaymentMethod, PaymentDate, EquipmentRental_ID)
 VALUES
 ('PE000001',150,'2025-11-01 11:06:00','Paid','Credit Card','2025-11-01 11:06:00','ER000001'),
-('PE000002',200,'2025-11-02 13:00:00','Pending','Bank Transfer','2025-11-05 07:29:00','ER000002'),
-('PE000003',200,'2025-10-25 19:55:00','Paid','Wallet','2025-10-25 19:55:00','ER000003');
+('PE000002',200,'2025-10-25 19:55:00','Paid','Wallet','2025-10-25 19:55:00','ER000003');
 
 CREATE TABLE PaymentBooking (
   PaymentBooking_ID CHAR(8) PRIMARY KEY,
@@ -162,8 +159,8 @@ CREATE TABLE PaymentBooking (
 INSERT INTO PaymentBooking (PaymentBooking_ID, PaymentMethod, Amount, PaymentDate, PaymentStatus, TransactionReference, Booking_ID)
 VALUES
 ('PB000001','Credit Card',120,'2025-10-20 09:05:00','Paid','TRX001','B0000001'),
-('PB000002','Bank Transfer',300,'2025-10-21 10:10:00','Failed','TRX002','B0000002'),
-('PB000003','Bank Transfer',300,'2025-10-21 10:20:00','Paid','TRX003','B0000002');
+('PB000002','Bank Transfer',300,'2025-10-21 09:10:00','Failed','TRX002','B0000002'),
+('PB000003','Bank Transfer',300,'2025-10-21 09:15:00','Paid','TRX003','B0000002');
 
 CREATE TABLE Admin (
   Admin_ID CHAR(8) PRIMARY KEY,
@@ -244,9 +241,8 @@ CREATE TABLE Admin_monitor_LH (
 
 INSERT INTO Admin_monitor_LH (Admin_ID, LoginHistory_ID)
 VALUES
-('A0000001','L0000001'),
-('A0000001','L0000002'),
-('A0000002','L0000003');
+('A0000001','L0000001');
+
 
 CREATE TABLE User_enroll_T (
   User_ID CHAR(8),
