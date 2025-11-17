@@ -8,3 +8,5 @@
 6. npm install ทั้งสอง Terminal  
 7. npm start ทั้งสอง Terminal
 8. หน้า landing จะเด้งขึ้นมา
+
+(USERNAME ADMIN : superadmin PASSWORD ADMIN : superpass)
