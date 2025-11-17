@@ -16,7 +16,7 @@ const searchingFacilityRoutes = require('./routes/searchingfacilityRoutes');
 const searchingTournamentRoutes = require('./routes/searchingtournamentRoutes');
 
 const app = express();
-const port = process.env.PORT; 
+const port = process.env.PORT || 8000; 
 
 const corsOptions = {
     origin: 'http://localhost:3000' // << ใส่ Port ของ Front-end ที่คุณตั้งใจจะรัน
@@ -47,4 +47,5 @@ app.use(searchingTournamentRoutes);
 // --- Start Server ---
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
+
 });
