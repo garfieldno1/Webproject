@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament - Sport Hub</title>
+    <link rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/css/results-f-t-style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="tournament">
+
+     <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/img/LOGO.png" alt="Sport Hub Logo" >
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/facility">Facility</a></li>
+                    <li><a href="/tournament">Tournament</a></li>
+                    <li><a href="" id="booking-check-link">Booking Check</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                 <a href="/search" class="search-bth"><img src="/img/search.png" alt="search"class="search-btn" ></a>
+                <img src="/img/bar.png" alt="bar"class="bar" >
+                <a href="/choose_login" class="login-btn">Login</a>
+                <a href="/register_page1" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="detail-header">
+                <h1>Tournament</h1>
+            </div>
+
+            <div class="results-grid">
+                </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container"></div>
+    </footer>
+
+<script>
+        // 1. ค้นหาลิงก์ "Booking Check" (โค้ดเดิม)
+        const bookingCheckLink = document.getElementById('booking-check-link');
+        if (bookingCheckLink) {
+            bookingCheckLink.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                alert('Please Login First !');
+                window.location.href = '/choose_login';
+            });
+        }
+
+        // --- ⬇️⬇️ ส่วนดึงข้อมูลทั้งหมด (ลบวันที่และสถานะออก) ⬇️⬇️ ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const resultsGrid = document.querySelector('.results-grid');
+            const apiUrl = '/api/tournaments'; 
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return response.json();
+                })
+                .then(tournaments => {
+                    resultsGrid.innerHTML = ''; 
+
+                    if (tournaments.length === 0) {
+                        resultsGrid.innerHTML = '<p>No tournaments available at the moment.</p>';
+                        return;
+                    }
+
+                    tournaments.forEach(t => {
+                        const card = document.createElement('div');
+                        card.className = 'result-card';
+
+                        // --- 1. สร้าง URL รูปภาพ ---
+                        let imageUrl = '/img/football-tournament.jpg';
+                        if (t.SportType === 'Badminton') {
+                            imageUrl = '/img/badminton-tournament.jpg';
+                        } else if (t.SportType === 'Ping Pong') {
+                            imageUrl = '/img/pingpong-tournament.jpg';
+                        }
+                        
+                        // --- 2. สร้าง URL สำหรับลิงก์ ---
+                        const detailUrl = `/detail_tournament?id=${t.Tournament_ID}`;
+
+                        // --- 3. ตรวจสอบสถานะ (ยังต้องใช้สำหรับปุ่ม) ---
+                        const status = t.Status;
+                        const isUnavailable = status === 'Cancelled' || status === 'Completed';
+
+                        
+                        // --- 4. สร้าง Card HTML (ลบ <p> 2 บรรทัด) ---
+                        card.innerHTML = `
+                            <div class="card-image">
+                                 <a href="${detailUrl}"><img src="${imageUrl}" alt="${t.Name}"></a>
+                            </div>
+                            <div class="card-content-t"> 
+                                <h3 class="card-title">${t.Name}</h3>
+                                </div>
+                            <div class="card-action">
+                                ${isUnavailable
+                                    ? `<a href="javascript:void(0);" class="booking-btn disabled-btn" aria-disabled="true">${status}</a>`
+                                    : `<a href="${detailUrl}" class="booking-btn">Enrolling Now!</a>`
+                                }
+                            </div>
+                        `;
+                        resultsGrid.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching tournaments:', error);
+                    resultsGrid.innerHTML = '<p>Error loading tournaments. Please try again later.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

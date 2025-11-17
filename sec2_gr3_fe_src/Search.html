@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search - Sport Hub</title>
+    <link rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/css/search-style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+     <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/img/LOGO.png" alt="Sport Hub Logo" >
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/facility">Facility</a></li>
+                    <li><a href="/tournament">Tournament</a></li>
+                    <li><a href="" id="booking-check-link">Booking Check</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                 <a href="/search" class="search-bth"><img src="/img/search.png" alt="search"class="search-btn" ></a>
+                <img src="/img/bar.png" alt="bar"class="bar" >
+                <a href="/choose_login" class="login-btn">Login</a>
+                <a href="/register_page1" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="search-title">Advanced Search</h1>
+
+            <form class="search-form" id="search-form">
+                <div class="form-group">
+                    <label for="service">Service</label>
+                    <select id="service" name="service">
+                        <option value="" disabled selected></option>
+                        <option value="facility">Facility</option>
+                        <option value="tournament">Tournament</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="sport-type">Sport Type</label>
+                    <select id="sport-type" name="sport-type">
+                        <option value="" disabled selected></option>
+                        <option value="football">Football</option>
+                        <option value="badminton">Badminton</option>
+                        <option value="Ping Pong">Ping Pong</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" placeholder="YYYY/MM/DD">
+                </div>
+
+                <div class="form-actions">
+                    
+                    <button type="submit" class="main-search-btn">
+                         <img class="search(white)-btn" src="/img/search(white).png" alt="Search">Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            </div>
+    </footer>
+
+<script>
+    // 1. รอให้หน้าเว็บโหลดเสร็จก่อน
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 2. หาฟอร์มค้นหา
+        const searchForm = document.getElementById('search-form'); // <--- เพิ่ม ID ให้ฟอร์มด้วย
+        
+        // 3. หาช่องเลือก Service
+        const serviceSelect = document.getElementById('service');
+        const nameInput = document.getElementById('name');
+        const sportTypeSelect = document.getElementById('sport-type');
+        const dateInput = document.getElementById('date');
+
+        // 4. ดักฟังเหตุการณ์เมื่อฟอร์มถูก "กดปุ่ม Submit" (ปุ่ม Search)
+        searchForm.addEventListener('submit', function(event) {
+            
+            // 5. หยุดการทำงานปกติของฟอร์ม (กันไม่ให้หน้าเว็บรีเฟรช)
+            event.preventDefault(); 
+
+            // 6. ดึงค่าที่ผู้ใช้เลือก/กรอก
+            const selectedService = serviceSelect.value;
+            const name = nameInput.value;
+            const sportType = sportTypeSelect.value;
+            const date = dateInput.value;
+
+            // 7. สร้าง URL query string
+            const queryParams = new URLSearchParams({
+                service: selectedService,
+                name: name,
+                type: sportType,
+                date: date
+            });
+
+            // 8. ตรวจสอบค่าที่เลือกและ Redirect
+            if (selectedService === 'facility') {
+                // ถ้าเลือก 'facility' ให้ย้ายไปหน้า Facility พร้อมพารามิเตอร์
+                window.location.href = `/search_facility?${queryParams.toString()}`;
+            } 
+            else if (selectedService === 'tournament') {
+                // ถ้าเลือก 'tournament' ให้ย้ายไปหน้า Tournament พร้อมพารามิเตอร์
+                window.location.href = `/search_tournament?${queryParams.toString()}`;
+            } 
+            else {  
+                // กรณีที่ผู้ใช้ยังไม่ได้เลือกอะไรเลย
+                alert('Please select a service (Facility or Tournament).');
+            }
+        });
+    });
+
+    // --- โค้ดสำหรับ Booking Check (เหมือนเดิม) ---
+    const bookingCheckLink = document.getElementById('booking-check-link');
+    if (bookingCheckLink) {
+        bookingCheckLink.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            alert('Please Login First !');
+            window.location.href = '/choose_login';
+        });
+    }
+</script>
+
+
+</body>
+</html>
