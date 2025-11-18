@@ -116,4 +116,4 @@
 
 -หน้าสำหรับการจัดการข้อมูลสินค้าหรือ service ทดสอบ post man ได้ที่ไฟล์ facilityRoutes.js
 
--หน้าสำหรับการค้นหาและการแสดงผลสินค้าสามารถทดสอบ post man ได้ที่ไฟล์ service searchingfacilityRoutes.js กับ searchingtournamentRoutes.js
+-หน้าสำหรับการค้นหาและการแสดงผลสินค้าและบริการ สามารถทดสอบ post man ได้ที่ไฟล์ service searchingfacilityRoutes.js กับ searchingtournamentRoutes.js
