@@ -1,19 +1,26 @@
 # README
 
 1.เริ่มแรกให้ทำการดาวน์โหลดไฟล์ zip จาก GitHub
+
 2.เมื่อดาวน์โหลดสำเร็จให้ทำการเปิดไฟล์ขึ้นมาโดยแยกเป็นสองส่วนคือ
  -Folderใน vs code (Front-end, Back-end)
  -ไฟล์ใน MYSQL Workbench (data base)
+
 3.ทำการ run file data base เพื่อให้ระบบสามารถเข้าถึงและใช้งานข้อมูลในฐานข้อมูลได้
+
 4.สร้างไฟล์. env ในไฟล์ folder sec2_gr3_ws_src แล้วทำการใส่ข้อมูลดังนี้
  -DB_HOST = localhost
 -DB_USER = root
 -DB_NAME = sec2_gr3_database
 -DB_PASSWORD = (ใช้รหัสของแต่ละเครื่อง)
 -PORT = 8000
+
 5.ทำการลง node_modules โดยใช้คำสั่ง `npm install ` ใน terminal ของ folder sec2_gr3_ws_src
+
 6.ใน folder sec2_gr3_fe_src ก็ทำเช่นกันเหมือนกับข้อ 5 แต่ทำใน folder sec_gr3_fe_src
+
 7.หน้าเว็บจะเด้งให้ทันทีหากไม่เด้งให้พิมพ์ `http://localhost:3000/` ในแถบ URL เพื่อเป็นการเริ่มใช้งาน web 
+
 8.ระบบจะทำการแสดงหน้า **Landing Page** 
 
 ## Landing Page
