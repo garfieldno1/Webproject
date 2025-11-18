@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search - Sport Hub</title>
+    <link rel="stylesheet" href="/css/main-style.css">
+    <link rel="stylesheet" href="/css/search-style.css">
+    <link rel="stylesheet" href="/css/results-f-t-style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .results-grid {
+            margin-top: 40px; /* <-- ปรับค่า 40px นี้ได้ตามความเหมาะสม */
+        }
+    </style>
+</head>
+<body>
+
+     <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/img/LOGO.png" alt="Sport Hub Logo" >
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/facility">Facility</a></li>
+                    <li><a href="/tournament">Tournament</a></li>
+                    <li><a href="" id="booking-check-link">Booking Check</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                 <a href="/search" class="search-bth"><img src="/img/search.png" alt="search"class="search-btn" ></a>
+                <img src="/img/bar.png" alt="bar"class="bar" >
+                <a href="/choose_login" class="login-btn">Login</a>
+                <a href="/register_page1" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="search-title">Advanced Search</h1>
+
+            <form class="search-form" id="search-form">
+                <div class="form-group">
+                    <label for="service">Service</label>
+                    <select id="service" name="service">
+                        <option value="" disabled selected></option>
+                        <option value="facility">Facility</option>
+                        <option value="tournament">Tournament</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="sport-type">Sport Type</label>
+                    <select id="sport-type" name="sport-type">
+                        <option value="" disabled selected></option>
+                        <option value="football">Football</option>
+                        <option value="badminton">Badminton</option>
+                        <option value="Ping Pong">Ping Pong</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" placeholder="YYYY/MM/DD">
+                </div>
+
+                <div class="form-actions">
+                    
+                    <button type="submit" class="main-search-btn">
+                         <img class="search(white)-btn" src="/img/search(white).png" alt="Search">Search
+                    </button>
+                </div>
+            </form>
+
+            <div class="results-grid" id="results-container">
+                </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            </div>
+    </footer>
+
+<script>
+    // --- โค้ดสำหรับ Booking Check  ---
+    const bookingCheckLink = document.getElementById('booking-check-link');
+    if (bookingCheckLink) {
+        bookingCheckLink.addEventListener('click', function(event) {
+            event.preventDefault(); 
+            alert('Please Login First !');
+            window.location.href = '/choose_login';
+        });
+    }
+
+    // --- ⬇️⬇️ โค้ดค้นหาฉบับใหม่ (AJAX) ⬇️⬇️ ---
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const searchForm = document.getElementById('search-form');
+        const serviceSelect = document.getElementById('service');
+        const nameInput = document.getElementById('name');
+        const sportTypeSelect = document.getElementById('sport-type');
+        const dateInput = document.getElementById('date');
+        
+        // ชี้ไปที่กล่องแสดงผลลัพธ์ที่เราสร้างไว้
+        const resultsGrid = document.getElementById('results-container');
+
+        searchForm.addEventListener('submit', function(event) {
+            
+            // 1. หยุดการทำงานปกติของฟอร์ม (ไม่ให้รีเฟรชหน้า)
+            event.preventDefault(); 
+
+            // 2. ดึงค่าที่ผู้ใช้กรอก
+            const selectedService = serviceSelect.value;
+            const name = nameInput.value;
+            const sportType = sportTypeSelect.value;
+            const date = dateInput.value;
+
+            // 3. ล้างผลลัพธ์เก่าและแสดงสถานะ "Loading..."
+            resultsGrid.innerHTML = '<p>Loading results...</p>';
+
+            // 4. ตรวจสอบว่าเลือก Service อะไร
+            if (selectedService === 'facility') {
+                // --- 4.1. ถ้าเลือก Facility ---
+                const apiUrl = `/api/search/facility?name=${encodeURIComponent(name)}&type=${encodeURIComponent(sportType)}`;
+                
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(facilities => {
+                        resultsGrid.innerHTML = ''; // ล้าง "Loading..."
+
+                        if (facilities.length === 0) {
+                            resultsGrid.innerHTML = '<p>No facilities found matching your criteria.</p>';
+                            return;
+                        }
+
+                        // (โค้ดส่วนนี้คัดลอกมาจาก Searching_result_(Facility).html)
+                        facilities.forEach(facility => {
+                            const card = document.createElement('div');
+                            card.className = 'result-card';
+                            
+                            let imageUrl = '/img/footbal.jpg';
+                            let detailUrl = '/detail_facility';
+                            
+                            if (facility.Type === 'Badminton') {
+                                imageUrl = '/img/badminton.jpg';
+                            } else if (facility.Type === 'Ping Pong') {
+                                imageUrl = '/img/pingpong.jpg';
+                            }
+
+                            const isClosed = facility.Status === 'Closed';
+                            const isUnavailable = isClosed;
+
+                            card.innerHTML = `
+                                <div class="card-image">
+                                    <a href="${detailUrl}?id=${facility.Facility_ID}"><img src="${imageUrl}" alt="${facility.Name}"></a>
+                                </div>
+                                <div class="card-content-f">
+                                    <h3 class="card-title">${facility.Name}</h3>
+                                    <p class="card-info">Type : ${facility.Type}</p>
+                                    <p class="card-info">Description : ${facility.Description || 'N/A'}</p>
+                                    <p class="card-info">Open/Close : ${facility.OpenTime || 'N/A'} - ${facility.CloseTime || 'N/A'}</p>
+                                    <p class="card-info">Status : ${facility.Status || 'Available'}</p>
+                                </div>
+                                <div class="card-action">
+                                    ${isUnavailable
+                                        ? `<a href="javascript:void(0);" class="booking-btn disabled-btn" aria-disabled="true">${facility.Status}</a>`
+                                        : `<a href="#" class="booking-btn">Booking Now!</a>`
+                                    }
+                                </div>
+                            `;
+                            resultsGrid.appendChild(card);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching facility results:', error);
+                        resultsGrid.innerHTML = '<p>Error loading results. Please try again later.</p>';
+                    });
+
+            } 
+            else if (selectedService === 'tournament') {
+                // --- 4.2. ถ้าเลือก Tournament ---
+                const apiUrl = `/api/search/tournament?name=${encodeURIComponent(name)}&type=${encodeURIComponent(sportType)}&date=${encodeURIComponent(date)}`;
+                
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(tournaments => {
+                        resultsGrid.innerHTML = ''; // ล้าง "Loading..."
+
+                        if (tournaments.length === 0) {
+                            resultsGrid.innerHTML = '<p>No tournaments found matching your criteria.</p>';
+                            return;
+                        }
+
+                        // (โค้ดส่วนนี้คัดลอกมาจาก Searching_result_(Tournament).html)
+                        tournaments.forEach(t => {
+                            const card = document.createElement('div');
+                            card.className = 'result-card';
+
+                            let imageUrl = '/img/football-tournament.jpg';
+                            let detailUrl = '/detail_tournament';   
+                            
+                            if (t.SportType === 'Badminton') {
+                                imageUrl = '/img/badminton-tournament.jpg';
+                            } else if (t.SportType === 'Ping Pong') {
+                                imageUrl = '/img/pingpong-tournament.jpg';
+                            }
+
+                            const startDate = new Date(t.StartDate).toLocaleDateString('en-UK');
+                            const endDate = new Date(t.EndDate).toLocaleDateString('en-UK');
+                            const status = t.Status;
+                            const isUnavailable = status === 'Cancelled' || status === 'Completed';
+
+                            card.innerHTML = `
+                                <div class="card-image">
+                                    <a href="${detailUrl}?id=${t.Tournament_ID}"><img src="${imageUrl}" alt="${t.Name}"></a>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">${t.Name}</h3>
+                                    <p class="card-info">Tournament Dates</p>
+                                    <p class="card-info">${startDate} - ${endDate}</p>
+                                </div>
+                                <div class="card-action">
+                                    ${isUnavailable
+                                        ? `<a href="javascript:void(0);" class="booking-btn disabled-btn" aria-disabled="true">${status}</a>`
+                                        : `<a href="#" class="booking-btn">Enrolling Now!</a>`
+                                    }
+                                </div>
+                            `;
+                            resultsGrid.appendChild(card);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching tournament results:', error);
+                        resultsGrid.innerHTML = '<p>Error loading results. Please try again later.</p>';
+                    });
+            } 
+            else {  
+                // 4.3. กรณีที่ยังไม่ได้เลือก Service
+                resultsGrid.innerHTML = ''; // ล้าง "Loading..."
+                alert('Please select a service (Facility or Tournament).');
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>

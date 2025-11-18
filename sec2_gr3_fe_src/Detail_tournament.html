@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tournament Details - SportHub</title>
+  <link rel="stylesheet" href="/css/main-style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <header>
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="/img/LOGO.png" alt="Sport Hub Logo" >
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/facility">Facility</a></li>
+                    <li><a href="/tournament">Tournament</a></li>
+                    <li><a href="" id="booking-check-link">Booking Check</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                 <a href="/search" class="search-bth"><img src="/img/search.png" alt="search"class="search-btn" ></a>
+                <img src="/img/bar.png" alt="bar"class="bar" >
+                <a href="/choose_login" class="login-btn">Login</a>
+                <a href="/register_page1" class="signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+  <main>
+    <div class="container">
+      <div class="detail-header">
+        <h1 id="tournament-header">Loading...</h1>
+        <a href="javascript:history.back()" class="back-link">&lt; Back</a>
+      </div>
+
+      <div class="card">
+        <div class="image-section">
+          <img src="/img/football-tournament.jpg" alt="Tournament poster" id="tournament-image">
+        </div>
+
+        <div class="info-section">
+          <h2 class="info-title" id="tournament-title">Loading...</h2>
+          <div class="info-item">
+            <span class="info-label" id="tournament-type">Sport Type : ...</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Registration Deadline :</span> <span id="tournament-deadline">...</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Tournament Dates :</span> <span id="tournament-dates">...</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Max Participants (Team) :</span> <span id="tournament-participants">...</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Status :</span> <span id="tournament-status">...</span>
+          </div>
+
+          <button class="booking-btn-detail" id="enrolling-btn">Enrolling Now!</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container"></div>
+  </footer>
+
+  <script>
+    // --- โค้ดสำหรับ Booking Check (เหมือนเดิม) ---
+    const bookingCheckLink = document.getElementById('booking-check-link');
+    if (bookingCheckLink) {
+      bookingCheckLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        alert('Please Login First !');
+        window.location.href = '/choose_login';
+      });
+    }
+
+    // 🔽🔽🔽 --- นี่คือ JavaScript ใหม่สำหรับดึงข้อมูล --- 🔽🔽🔽
+document.addEventListener('DOMContentLoaded', () => {
+      // 1. อ่าน ID จาก URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const tournamentId = urlParams.get('id');
+
+      if (!tournamentId) {
+          // ... (โค้ด Error เหมือนเดิม) ...
+          return;
+      }
+
+      // 2. สร้าง API URL
+      const apiUrl = `/api/tournament/${tournamentId}`;
+
+      // 3. ยิง API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(tournament => {
+          if (!tournament) throw new Error('Tournament data is empty');
+
+          // 4. อัปเดตข้อมูลในหน้า HTML (เหมือนเดิม)
+          document.title = `${tournament.Name} - SportHub`;
+          document.getElementById('tournament-header').textContent = tournament.Name;
+          document.getElementById('tournament-title').textContent = tournament.Name;
+          document.getElementById('tournament-type').textContent = `Sport Type : ${tournament.SportType}`;
+          document.getElementById('tournament-deadline').textContent = new Date(tournament.RegistrationDeadline).toLocaleDateString('en-UK');
+          document.getElementById('tournament-dates').textContent = `${new Date(tournament.StartDate).toLocaleDateString('en-UK')} to ${new Date(tournament.EndDate).toLocaleDateString('en-UK')}`;
+          document.getElementById('tournament-participants').textContent = tournament.Participants;
+          document.getElementById('tournament-status').textContent = tournament.Status;
+
+          // 5. อัปเดตรูปภาพ (เหมือนเดิม)
+          let imageUrl = '/img/football-tournament.jpg';
+          if (tournament.SportType === 'Badminton') { //
+            imageUrl = '/img/badminton-tournament.jpg';
+          } else if (tournament.SportType === 'Ping Pong') { //
+            imageUrl = '/img/pingpong-tournament.jpg';
+          }
+          document.getElementById('tournament-image').src = imageUrl;
+          document.getElementById('tournament-image').alt = tournament.Name;
+
+          // --- 🔽🔽🔽 เพิ่มส่วนนี้ 🔽🔽🔽 ---
+          // 6. ตรวจสอบสถานะและปิดปุ่ม
+          const enrollingBtn = document.getElementById('enrolling-btn'); // ใช้ ID ใหม่ที่เราเพิ่งเพิ่ม
+          const status = tournament.Status;
+
+          if (status === 'Cancelled' || status === 'Completed') { //
+            enrollingBtn.disabled = true; // สั่งปิดปุ่ม
+            enrollingBtn.textContent = status; // เปลี่ยนข้อความบนปุ่ม
+          }
+          // --- 🔼🔼🔼 สิ้นสุดส่วนที่เพิ่ม 🔼🔼🔼 ---
+
+        })
+        .catch(error => {
+          console.error('Error fetching tournament details:', error);
+          document.getElementById('tournament-header').textContent = 'Error loading tournament';
+          document.getElementById('tournament-title').textContent = 'Could not load details';
+        });
+    });
+  </script>
+</body>
+</html>
