@@ -45,6 +45,9 @@
 -	Username: superadmin
 -	Password: superpass
 4.	หลังจากกรอกข้อมูลเสร็จเรียบร้อยและทำการ **Login** ระบบจะนำไปสู่หน้า **Manage Page** ซึ่งมีฟังก์ชันต่างๆ ที่สามารถจัดการระบบได้ดังนี้
+
+หมายเหตุให้ทดลองเล่นแค่ 2 อันตาม requirementแต่อันอื่นก็สามรถลองเล่นได้
+
 ## Manage User Page
 หน้านี้ระบบจะแสดงข้อมูลของ**User** ได้แก่ User_Id, User_Name, Email, BirthDate, Role
 
