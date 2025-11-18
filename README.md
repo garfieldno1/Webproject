@@ -110,6 +110,7 @@
 2.ระบบจะถามว่า คุณต้องการ Logout และกลับไปหน้า Landing หรือไม่? 
 
 3.กดตกลงระบบจะทำการ logout และกลับไปหน้า landing page
+
 -หน้าสำหรับการจัดการข้อมูลผู้ดูแลระบบ ทดสอบ post manได้ที่ไฟล์ userRoutes.js 
 -หน้าสำหรับการจัดการข้อมูลสินค้าหรือ service ทดสอบ post man ได้ที่ไฟล์facilityRoutes.js
 -หน้าสำหรับการค้นหาและการแสดงผลสินค้าสามารถทดสอบ post maneได้ที่ไฟล์service searchingfacilityRoutes.js กับ searchingtournamentRoutes.ja
