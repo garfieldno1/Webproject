@@ -12,7 +12,7 @@
  -DB_HOST = localhost
 -DB_USER = root
 -DB_NAME = sec2_gr3_database
--DB_PASSWORD = (ใช้รหัสของแต่ละเครื่อง)
+-DB_PASS = (ใช้รหัสของแต่ละเครื่อง)
 -PORT = 8000
 
 5.ทำการลง node_modules โดยใช้คำสั่ง `npm install ` ใน terminal ของ folder sec2_gr3_ws_src
